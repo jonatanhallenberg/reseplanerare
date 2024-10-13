@@ -1,5 +1,10 @@
 import "./App.css";
+import { TravelPlanner } from "./components/TravelPlanner";
 
-const App = () => <div className="text-red-400">Hello World</div>;
+const App = () => (
+  <>
+    <TravelPlanner />
+  </>
+);
 
 export default App;
