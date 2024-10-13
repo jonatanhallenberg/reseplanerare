@@ -1,9 +1,5 @@
-function App() {
-  return (
-    <div className="App">
-      <h1 className="text-4xl font-bold text-red-400">Hello World</h1>
-    </div>
-  );
-}
+import "./App.css";
+
+const App = () => <div className="text-red-400">Hello World</div>;
 
 export default App;
