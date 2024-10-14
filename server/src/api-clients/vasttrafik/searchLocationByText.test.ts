@@ -37,7 +37,7 @@ describe("searchLocationByText function", () => {
       },
 
       links: {
-        next: "http://example.com/next1",
+        next: "http://example.com/next",
         current: "http://example.com/current",
       },
     };
