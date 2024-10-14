@@ -1,10 +1,11 @@
 import { Request, Response } from "express";
-import { searchLocationByText } from "../api-clients/journey";
-import { mapLocation, MappedLocation } from "../utils/mapLocation";
+import { searchLocationByText } from "../api-clients/vasttrafik";
+import { mapLocation } from "./utils/mapLocation";
 
 export const searchLocation = async (req: Request, res: Response) => {
-  const { searchString } = req.body;
-  const { results } = await searchLocationByText(searchString);
-  const mappedLocations = results.map(mapLocation);
+  const { searchString } = req.query;
+  const { results } = await searchLocationByText(searchString as string);
+  const locationsWithGid = results.filter((location) => location.gid);
+  const mappedLocations = locationsWithGid.map(mapLocation);
   res.json(mappedLocations);
 };

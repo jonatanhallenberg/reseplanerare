@@ -7,7 +7,7 @@ export const locationSchema = z.object({
   locationType: z.string(),
   latitude: z.number(),
   longitude: z.number(),
-  hasLocalService: z.boolean(),
+  hasLocalService: z.boolean().optional(),
 });
 
 export type Location = z.infer<typeof locationSchema>;

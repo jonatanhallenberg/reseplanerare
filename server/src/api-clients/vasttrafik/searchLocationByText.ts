@@ -1,4 +1,7 @@
-import { SearchLocationResponse, searchLocationResponseSchema } from "./types";
+import {
+  SearchLocationResponse,
+  searchLocationResponseSchema,
+} from "./types/location";
 
 export const searchLocationByText = async (
   byText: string

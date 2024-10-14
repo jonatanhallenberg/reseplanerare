@@ -1,7 +1,8 @@
-import { Location } from "../api-clients/journey/types";
+import { Location } from "../../api-clients/vasttrafik/types/location";
 import { convertWGS84toRT90 } from "./convertCoordinates";
 
 export type MappedLocation = {
+  gid?: string;
   name: string;
   latitude: number;
   longitude: number;
@@ -16,6 +17,7 @@ export const mapLocation = (location: Location): MappedLocation => {
   );
 
   return {
+    gid: location.gid,
     name: location.name,
     latitude: location.latitude,
     longitude: location.longitude,

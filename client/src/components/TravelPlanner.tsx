@@ -8,55 +8,15 @@ import {
 } from "@/components/ui/card";
 import { TravelPlannerForm } from "./TravelPlannerForm";
 import { TravelPlannerResult } from "./TravelPlannerResult";
-
-type SearchResult = {
-  id: string;
-  departureTime: string;
-  arrivalTime: string;
-  duration: string;
-  transfers: number;
-  legs: { type: "bus" | "train"; number: string }[];
-};
+import { findJourney, Journey } from "@/api/findJourney";
 
 export const TravelPlanner = () => {
-  const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
+  const [searchResults, setSearchResults] = useState<Journey[]>([]);
 
-  const handleSearch = () => {
+  const handleSearch = async (fromGid: string, toGid: string) => {
     // Simulate API call with mock data
-    const mockResults: SearchResult[] = [
-      {
-        id: "1",
-        departureTime: "12:15",
-        arrivalTime: "13:05",
-        duration: "50 min",
-        transfers: 1,
-        legs: [
-          { type: "bus", number: "42" },
-          { type: "train", number: "J35" },
-        ],
-      },
-      {
-        id: "2",
-        departureTime: "12:30",
-        arrivalTime: "13:15",
-        duration: "45 min",
-        transfers: 0,
-        legs: [{ type: "train", number: "X2000" }],
-      },
-      {
-        id: "3",
-        departureTime: "12:45",
-        arrivalTime: "13:40",
-        duration: "55 min",
-        transfers: 2,
-        legs: [
-          { type: "bus", number: "19" },
-          { type: "bus", number: "76" },
-          { type: "train", number: "P12" },
-        ],
-      },
-    ];
-    setSearchResults(mockResults);
+    const journeys = await findJourney(fromGid, toGid);
+    setSearchResults(journeys);
   };
 
   return (
@@ -71,7 +31,7 @@ export const TravelPlanner = () => {
       </CardContent>
       <CardFooter className="flex-col">
         {searchResults.length > 0 && (
-          <TravelPlannerResult searchResults={searchResults} />
+          <TravelPlannerResult journeys={searchResults} />
         )}
       </CardFooter>
     </Card>

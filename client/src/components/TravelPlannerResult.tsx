@@ -1,27 +1,24 @@
 import React from "react";
 import { TravelCard } from "./TravelCard";
-
-interface SearchResult {
-  id: string;
-  departureTime: string;
-  arrivalTime: string;
-  duration: string;
-  transfers: number;
-  legs: { type: "bus" | "train"; number: string }[];
-}
+import { Journey } from "@/api/findJourney";
 
 type TravelPlannerResultProps = {
-  searchResults: SearchResult[];
+  journeys: Journey[];
 };
 
 export const TravelPlannerResult: React.FC<TravelPlannerResultProps> = ({
-  searchResults,
+  journeys,
 }) => {
   return (
     <div className="flex flex-col gap-4 w-full">
       <div className="space-y-4">
-        {searchResults.map((result) => (
-          <TravelCard key={result.id} result={result} />
+        {journeys.map((journey, index) => (
+          <TravelCard
+            key={index}
+            departureTime={new Date(journey.startTime)}
+            arrivalTime={new Date(journey.endTime)}
+            transfers={journey.numberOfLegs}
+          />
         ))}
       </div>
     </div>

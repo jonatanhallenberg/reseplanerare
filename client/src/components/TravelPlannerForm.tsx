@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { CalendarIcon, Clock, MapPin, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -11,16 +11,17 @@ import {
 import { Calendar } from "@/components/ui/calendar";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
+import Autocomplete from "./Autocomplete";
 
 type TravelPlannerFormProps = {
-  onSearch: () => void;
+  onSearch: (fromGid: string, toGid: string) => Promise<void>;
 };
 
 export const TravelPlannerForm: React.FC<TravelPlannerFormProps> = ({
   onSearch,
 }) => {
-  const [date, setDate] = useState<Date>();
-  const [time, setTime] = useState("12:00");
+  const [fromGid, setFromGid] = useState("");
+  const [toGid, setToGid] = useState("");
 
   return (
     <>
@@ -29,17 +30,23 @@ export const TravelPlannerForm: React.FC<TravelPlannerFormProps> = ({
           <Label htmlFor="from">Från</Label>
           <div className="relative">
             <MapPin className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
-            <Input id="from" placeholder="Startplats" className="pl-8" />
+            <Autocomplete
+              placeholder="Start"
+              onLocationSelect={(location) => setFromGid(location.gid)}
+            />
           </div>
         </div>
         <div className="space-y-2">
           <Label htmlFor="to">Till</Label>
           <div className="relative">
             <MapPin className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
-            <Input id="to" placeholder="Destination" className="pl-8" />
+            <Autocomplete
+              placeholder="Destination"
+              onLocationSelect={(location) => setToGid(location.gid)}
+            />
           </div>
         </div>
-        <div className="flex space-x-4">
+        {/* <div className="flex space-x-4">
           <div className="flex-1 space-y-2">
             <Label>Datum</Label>
             <Popover>
@@ -78,9 +85,9 @@ export const TravelPlannerForm: React.FC<TravelPlannerFormProps> = ({
               />
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
-      <Button className="w-full" onClick={onSearch}>
+      <Button className="w-full" onClick={() => onSearch(fromGid, toGid)}>
         <Search className="mr-2 h-4 w-4" /> Sök resa
       </Button>
     </>
