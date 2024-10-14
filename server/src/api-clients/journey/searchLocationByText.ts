@@ -1,0 +1,19 @@
+import { SearchLocationResponse, searchLocationResponseSchema } from "./types";
+
+export const searchLocationByText = async (
+  byText: string
+): Promise<SearchLocationResponse> => {
+  const response = await fetch(
+    `${process.env.VASTTRAFIK_API_URL}/locations/by-text?q=${byText}&limit=10&offset=0`,
+    {
+      headers: {
+        Authorization: `Bearer ${process.env.VASTTRAFIK_API_KEY}`,
+      },
+    }
+  );
+
+  const data = await response.json();
+  const parsedData = searchLocationResponseSchema.parse(data);
+
+  return parsedData;
+};

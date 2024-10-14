@@ -1,8 +1,10 @@
 import { Router } from "express";
-import sampleRoutes from "./sampleRoutes";
+import locationRouter from "./locationRouter";
+import pingRouter from "./pingRouter";
 
 const router = Router();
 
-router.use("/sample", sampleRoutes);
+router.use("/location", locationRouter);
+router.use("/ping", pingRouter);
 
 export default router;
