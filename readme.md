@@ -1,6 +1,6 @@
 ## Agenda
 
-- Ramverk vi ska använda:
+- Ramverk vi ska titta på:
 	- GitHub Actions<[https://docs.github.com/en/actions](https://docs.github.com/en/actions)>  
 	- Jest<[https://jestjs.io/](https://jestjs.io/)>  
 	- Cypress<[https://www.cypress.io/](https://www.cypress.io/)>  
@@ -11,9 +11,10 @@
 
 - Demo och kodgenomgång av appen - [Bästtrafik Reseplanerare](appen-basttrafik.md)
 - [Intro Testning / TDD](teori-testning-tdd.md)
-	- Skapa jest-test
+	- Demo - Skapa jest-test
 - [Intro Testautomatisering](teori-testautomatisering.md)
-	- Sätta upp github actions för Jest-testerna
+	- Demo - Sätta upp github actions för Jest-testerna
 - [Övning - Jest / server](ovning-jest-server.md)
 - [E2E-testning - Playwright (vs. Cypress)](teori-playwright-e2e.md)
+- Demo - Playwright - ett första test och lite mer
 - [Övning - Playwright](ovning-playwright.md)
