@@ -23,8 +23,8 @@ jobs:
         run: npm run playwright:ci
         working-directory: ./client
       - uses: actions/upload-artifact@v4
-        if: ${{ !cancelled() }}
+        if: always()
         with:
-          name: playwright-report
-          path: playwright-report/
-          retention-days: 30
+          name: playwright-trace
+          path: playwright-trace/
+          retention-days: 14
