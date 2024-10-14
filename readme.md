@@ -10,7 +10,7 @@
 		- React Testing Library<[https://testing-library.com/docs/react-testing-library/intro/](https://testing-library.com/docs/react-testing-library/intro/)>
 
 - Gå igenom appen
-- Intro Testning / TDD
+- [Intro Testning / TDD](teori-testning-tdd.md)
 	- Skapa jest-test
 - Intro Testautomatisering
 	- Sätta upp github actions för Jest-testerna
