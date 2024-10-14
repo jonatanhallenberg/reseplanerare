@@ -11,3 +11,10 @@ test("has title", async ({ page }) => {
   });
   await expect(title).toBeVisible();
 });
+
+//Add snapshot test for the page
+test("snapshot test", async ({ page }) => {
+  await page.goto("http://localhost:5173/");
+
+  await expect(page).toHaveScreenshot("travel-planner.png");
+});
