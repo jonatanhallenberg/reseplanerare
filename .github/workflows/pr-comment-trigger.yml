@@ -1,0 +1,18 @@
+name: PR Comment Trigger
+
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  pr_commented:
+    name: PR comment trigger
+    if: ${{ github.event.issue.pull_request && contains(github.event.comment.body, '/update-playwright-snapshots') }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Playwright snapshot update
+        uses: peter-evans/repository-dispatch@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          event-type: update-playwright-snapshots
+          client-payload: '{"pr_number": "${{ github.event.issue.number }}"}'

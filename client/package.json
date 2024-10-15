@@ -10,7 +10,9 @@
     "preview": "vite preview",
     "playwright": "npx playwright test",
     "playwright:ui": "npx playwright test --ui",
-    "playwright:ci": "start-server-and-test dev http://localhost:5173 playwright"
+    "playwright:ci": "start-server-and-test dev http://localhost:5173 playwright",
+    "playwright:update-snapshots": "playwright test --update-snapshots",
+    "playwright:update-snapshots:ci": "start-server-and-test dev http://localhost:5173 playwright:update-snapshots"
   },
   "dependencies": {
     "@radix-ui/react-icons": "^1.3.0",
