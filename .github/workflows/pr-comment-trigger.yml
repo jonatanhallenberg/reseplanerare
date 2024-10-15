@@ -1,0 +1,87 @@
+# Update Playwright snapshots on CI when writing /playwright-update-snapshots as PR comment.
+# This workflow is based on this article: https://mmazzarolo.com/blog/2022-09-09-visual-regression-testing-with-playwright-and-github-actions/#updating-the-snapshots-in-ci-with-a-pull-request-comment
+
+name: Update Playwright Snapshots
+
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  log-github-event:
+    runs-on: ubuntu-latest-4-cores
+    steps:
+      - name: Dump GitHub context
+        id: github_context_step
+        run: |
+          echo $ISSUE
+          echo $COMMENT
+        env:
+          ISSUE: ${{ toJSON(github.event.issue) }}
+          COMMENT: ${{ toJSON(github.event.comment) }}
+
+  update-snapshots:
+    if: ${{ github.event.issue.pull_request && startsWith(github.event.comment.body, '/playwright-update-snapshots') }}
+    timeout-minutes: 60
+    runs-on: ubuntu-latest-4-cores
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Load all commits
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Get SHA and branch name
+        id: get-branch-and-sha
+        run: |
+          sha_and_branch=$(\
+            curl \
+              -H 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
+              https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.issue.number }} \
+            | jq -r '.head.sha," ",.head.ref');
+          echo "sha=$(echo $sha_and_branch | cut -d " " -f 1)"; >> $GITHUB_OUTPUT
+          echo "branch=$(echo $sha_and_branch | cut -d " " -f 2)" >> $GITHUB_OUTPUT
+
+      - name: Fetch Branch
+        run: git fetch
+
+      - name: Checkout Branch
+        run: git checkout ${{ steps.get-branch-and-sha.outputs.branch }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20.14.0
+          registry-url: https://npm.pkg.github.com/
+
+      - name: Authenticate with GitHub package registry
+        run: echo "//npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}" > ~/.npmrc
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Store Playwright's Version
+        run: |
+          PLAYWRIGHT_VERSION=$(npm ls @playwright/test | grep @playwright | sed 's/.*@//')
+          echo "Playwright's Version: $PLAYWRIGHT_VERSION"
+          echo "PLAYWRIGHT_VERSION=$PLAYWRIGHT_VERSION" >> $GITHUB_ENV
+
+      # Read more about caching Playwrights browsers here: https://github.com/microsoft/playwright/issues/7249
+      - name: Cache Playwright Browsers
+        id: playwright-browsers-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-browsers-${{ env.PLAYWRIGHT_VERSION }}
+
+      - name: Install Playwright with browsers
+        if: steps.playwright-browsers-cache.outputs.cache-hit != 'true'
+        run: npx playwright install --with-deps
+
+      - name: Install Playwright without browsers (they are cached)
+        if: steps.playwright-browsers-cache.outputs.cache-hit == 'true'
+        run: npx playwright install-deps
+
+      # Commit the changes to the pull request branch
+      - name: Commit snapshots
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "[CI] Update Snapshots"
