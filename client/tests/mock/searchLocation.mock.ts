@@ -1,4 +1,4 @@
-export const searchLocationMock = [
+export const searchLocationMockFalkoping = [
   {
     gid: "9021014041010000",
     name: "Falköping resecentrum (tåg), Falköping",
@@ -78,5 +78,48 @@ export const searchLocationMock = [
     longitude: 13.518581,
     latitudeRT90: 7983601.832145867,
     longitudeRT90: 1504881.553167623,
+  },
+];
+
+export const searchLocationMockUddevalla = [
+  {
+    gid: "0000000800000004",
+    name: "UDDEVALLA",
+    latitude: 58.351687,
+    longitude: 11.928892,
+    latitudeRT90: 8041561.710198896,
+    longitudeRT90: 1327918.1831679547,
+  },
+  {
+    gid: "9021014021120000",
+    name: "Uddevalla central (tåg), Uddevalla",
+    latitude: 58.354195,
+    longitude: 11.923265,
+    latitudeRT90: 8042093.818288639,
+    longitudeRT90: 1327291.7883932611,
+  },
+  {
+    gid: "9021014021293000",
+    name: "Uddevalla östra, Uddevalla",
+    latitude: 58.35113,
+    longitude: 11.944938,
+    latitudeRT90: 8041443.539806422,
+    longitudeRT90: 1329704.415717224,
+  },
+  {
+    gid: "9021014021119000",
+    name: "Uddevalla central, Uddevalla",
+    latitude: 58.353098,
+    longitude: 11.922932,
+    latitudeRT90: 8041861.069390632,
+    longitudeRT90: 1327254.7190028266,
+  },
+  {
+    gid: "9021014021211000",
+    name: "Uddevalla sjukhus, Uddevalla",
+    latitude: 58.35691,
+    longitude: 11.931032,
+    latitudeRT90: 8042669.886992593,
+    longitudeRT90: 1328156.4068782523,
   },
 ];
