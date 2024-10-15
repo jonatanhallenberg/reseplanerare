@@ -15,7 +15,12 @@ export const searchLocationByText = async (
     }
   );
 
+  if (!response.ok) {
+    throw new Error(response.statusText);
+  }
+
   const data = await response.json();
+
   const parsedData = searchLocationResponseSchema.parse(data);
 
   return parsedData;
