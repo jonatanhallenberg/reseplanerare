@@ -12,11 +12,17 @@ type TripLeg = {
 type Origin = {
   stopPoint: StopPoint;
   plannedTime: string;
+  estimatedTime: string;
+  estimatedOtherwisePlannedTime: string;
+  notes: string[];
 };
 
 type Destination = {
   stopPoint: StopPoint;
   plannedTime: string;
+  estimatedTime: string;
+  estimatedOtherwisePlannedTime: string;
+  notes: string[];
 };
 
 type StopPoint = {
