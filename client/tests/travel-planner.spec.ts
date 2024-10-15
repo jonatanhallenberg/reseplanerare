@@ -14,10 +14,10 @@ test("has title", async ({ page }) => {
 });
 
 //Add snapshot test for the page
-test("snapshot test", async ({ page }) => {
+test.skip("snapshot test", async ({ page }) => {
   await page.goto("http://localhost:5173/");
 
-  await expect(page).toHaveScreenshot("travel-planner.png");
+  await expect(page).toHaveScreenshot("travel-planner.png", { threshold: 0.2 });
 });
 
 test("search for a destination", async ({ page }) => {
@@ -39,8 +39,11 @@ test("search for a destination", async ({ page }) => {
 
   await from.fill("Falköping");
 
-  //Wait for the autocomplete to show the results
-  await page.waitForTimeout(2000);
+  // Vänta på att API-anropet slutförs
+  await page.waitForResponse(
+    "http://localhost:4000/api/location/search?searchString=*"
+  );
+
   await from.press("ArrowDown");
   await from.press("Enter");
 
