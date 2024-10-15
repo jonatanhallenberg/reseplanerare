@@ -33,6 +33,7 @@ export const TravelPlannerForm: React.FC<TravelPlannerFormProps> = ({
             <Autocomplete
               placeholder="Start"
               onLocationSelect={(location) => setFromGid(location.gid)}
+              testId="from-autocomplete"
             />
           </div>
         </div>
@@ -43,6 +44,7 @@ export const TravelPlannerForm: React.FC<TravelPlannerFormProps> = ({
             <Autocomplete
               placeholder="Destination"
               onLocationSelect={(location) => setToGid(location.gid)}
+              testId="to-autocomplete"
             />
           </div>
         </div>

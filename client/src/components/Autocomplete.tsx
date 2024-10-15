@@ -7,12 +7,14 @@ type AutocompleteProps = {
   placeholder?: string;
   onLocationSelect?: (location: Location) => void;
   nextInputRef?: React.RefObject<HTMLInputElement>;
+  testId?: string;
 };
 
 export default function Autocomplete({
   placeholder = "Sök plats...",
   onLocationSelect,
   nextInputRef,
+  testId,
 }: AutocompleteProps) {
   const [inputValue, setInputValue] = useState("");
   const [locations, setLocations] = useState<Location[]>([]);
@@ -122,6 +124,7 @@ export default function Autocomplete({
   return (
     <div className="relative">
       <input
+        data-testid={testId}
         ref={inputRef}
         type="text"
         value={inputValue}
