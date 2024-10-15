@@ -11,7 +11,7 @@ describe("mapJourney", () => {
     const expectedJourney: MappedJourney = {
       startTime: "2024-10-15T10:13:00.0000000+02:00",
       endTime: "2024-10-15T10:20:00.0000000+02:00",
-      numberOfLegs: 1,
+      numberOfLegs: 2,
     };
 
     //3. anropa funktionen
