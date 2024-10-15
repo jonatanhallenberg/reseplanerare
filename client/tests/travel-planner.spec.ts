@@ -9,3 +9,9 @@ test("has heading", async ({ page }) => {
 
   await expect(heading).toBeVisible();
 });
+
+test("screenshot test", async ({ page }) => {
+  await page.goto("http://localhost:5173/");
+
+  await expect(page).toHaveScreenshot("travel-planner.png");
+});
