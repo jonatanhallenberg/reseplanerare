@@ -30,6 +30,7 @@ export const TravelPlannerForm: React.FC<TravelPlannerFormProps> = ({
           <Label htmlFor="from">Från</Label>
           <div className="relative">
             <MapPin className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
+
             <Autocomplete
               placeholder="Start"
               onLocationSelect={(location) => setFromGid(location.gid)}
