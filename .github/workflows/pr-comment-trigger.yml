@@ -58,7 +58,6 @@ jobs:
         with:
           path: ~/.cache/ms-playwright
           key: playwright-browsers-${{ env.PLAYWRIGHT_VERSION }}
-        working-directory: ./client
 
       - name: Install Playwright with browsers
         if: steps.playwright-browsers-cache.outputs.cache-hit != 'true'
